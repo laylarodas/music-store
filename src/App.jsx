@@ -1,7 +1,11 @@
 import { Header } from "./components/Header"
 import { Product } from "./components/Product"
+import { useState } from "react"
+import { db } from "./data/db"
 
 function App() {
+
+  const [data, setData] = useState(db);
 
   return (
     <>

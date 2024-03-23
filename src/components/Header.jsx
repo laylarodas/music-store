@@ -2,7 +2,7 @@ import React from 'react'
 import { useMemo } from 'react'
 
 
-export const Header = ({ cart, removeFromCart}) => {
+export const Header = ({ cart, removeFromCart, increaseQuantity, decreaseQuantity}) => {
 
     //derived state
     const isEmpty = useMemo(() => cart.length === 0, [cart]); //only re-render if cart changes
@@ -56,9 +56,9 @@ export const Header = ({ cart, removeFromCart}) => {
                                                         ${product.price}
                                                     </td>
                                                     <td className="flex align-items-start gap-4">
-                                                        <button type="button" className="btn btn-dark">-</button>
+                                                        <button type="button" className="btn btn-dark" onClick={() => decreaseQuantity(product.id)}>-</button>
                                                         {product.quantity}
-                                                        <button type="button" className="btn btn-dark">+</button>
+                                                        <button type="button" className="btn btn-dark" onClick={() => increaseQuantity(product.id)}>+</button>
                                                     </td>
                                                     <td>
                                                         <button className="btn btn-danger" type="button" onClick={()=> removeFromCart(product.id)}>X</button>

@@ -1,10 +1,12 @@
 import React from 'react'
 
-export const Product = ({product}) => {
+export const Product = ({product, addToCart}) => {
 
-    const {name, image, description, price} = product;
+    const {id, name, image, description, price} = product;
 
     //console.log(product);
+
+
     return (
         <div className="col-md-6 col-lg-4 my-4 row align-items-center">
             <div className="col-4">
@@ -17,6 +19,7 @@ export const Product = ({product}) => {
                 <button
                     type="button"
                     className="btn btn-dark w-100"
+                    onClick={() =>  addToCart( product)}
                 >Agregar al Carrito</button>
             </div>
         </div>

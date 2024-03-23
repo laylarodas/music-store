@@ -9,6 +9,7 @@ function App() {
   const [cart, setCart] = useState([]);
 
   const MAX_QUANTITY = 5;
+  const MIN_QUANTITY = 1;
 
   function addToCart(item) {
 
@@ -16,6 +17,11 @@ function App() {
 
     if (itemExists >= 0) {//item exist in cart
 
+      if (cart[itemExists].quantity >= MAX_QUANTITY) {
+        return;
+      }
+
+      
       const updatedCart = [...cart];//copy cart
 
       updatedCart[itemExists].quantity += 1;//position of item in cart increase quantity
@@ -50,7 +56,19 @@ function App() {
   }
 
   function decreaseQuantity(id) {
-    console.log('decreaseQuantity', id);
+    //console.log('decreaseQuantity', id);
+
+    const updatedCart = cart.map(item => {
+      if (item.id === id && item.quantity > MIN_QUANTITY) {
+        return {
+          ...item,
+          quantity: item.quantity - 1
+        }
+      }
+      return item;
+    })
+
+    setCart(updatedCart);
   }
 
   return (

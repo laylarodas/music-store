@@ -1,13 +1,15 @@
 import React from 'react'
+import { useMemo } from 'react'
+
 
 export const Header = ({ cart }) => {
 
     //derived state
-    const isEmpty = () => cart.length === 0;
+    const isEmpty = useMemo(() => cart.length === 0, [cart]); //only re-render if cart changes
 
-    const cartTotal = () => {
+    const cartTotal = useMemo(() => {
         return cart.reduce((total, product) => total + product.price * product.quantity, 0);
-    }
+    }, [cart]);
 
     return (
         <header className="py-5 header">
@@ -29,7 +31,7 @@ export const Header = ({ cart }) => {
 
                             <div id="carrito" className="bg-white p-3">
 
-                                {isEmpty() ? (
+                                {isEmpty ? (
                                     <p className="text-center">El carrito esta vacio</p>
                                 ) : (
                                 <>
@@ -66,7 +68,7 @@ export const Header = ({ cart }) => {
                                         </tbody>
                                     </table>
                                
-                                    <p className="text-end">Total pagar: <span className="fw-bold">${cartTotal()}</span></p>
+                                    <p className="text-end">Total pagar: <span className="fw-bold">${cartTotal}</span></p>
                                 </>
                                 )}
 

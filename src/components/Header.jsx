@@ -2,7 +2,7 @@ import React from 'react'
 import { useMemo } from 'react'
 
 
-export const Header = ({ cart }) => {
+export const Header = ({ cart, removeFromCart}) => {
 
     //derived state
     const isEmpty = useMemo(() => cart.length === 0, [cart]); //only re-render if cart changes
@@ -61,7 +61,7 @@ export const Header = ({ cart }) => {
                                                         <button type="button" className="btn btn-dark">+</button>
                                                     </td>
                                                     <td>
-                                                        <button className="btn btn-danger" type="button">X</button>
+                                                        <button className="btn btn-danger" type="button" onClick={()=> removeFromCart(product.id)}>X</button>
                                                     </td>
                                                 </tr>
                                             ))}
@@ -72,7 +72,7 @@ export const Header = ({ cart }) => {
                                 </>
                                 )}
 
-                                <button className="btn btn-dark w-100 mt-3 p-2">Vaciar Carrito</button>
+                                <button className="btn btn-dark w-100 mt-3 p-2" >Vaciar Carrito</button>
 
                             </div>
                         </div>

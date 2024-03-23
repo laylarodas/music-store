@@ -1,15 +1,24 @@
 import { Header } from "./components/Header"
 import { Product } from "./components/Product"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { db } from "./data/db"
 
 function App() {
 
-  const [data, setData] = useState(db);
-  const [cart, setCart] = useState([]);
+  const initialCart = () => {
+    const localData = localStorage.getItem('cart');
+    return localData ? JSON.parse(localData) : [];
+  }
+
+  const [data] = useState(db);
+  const [cart, setCart] = useState(initialCart);
 
   const MAX_QUANTITY = 5;
   const MIN_QUANTITY = 1;
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   function addToCart(item) {
 
@@ -21,7 +30,7 @@ function App() {
         return;
       }
 
-      
+
       const updatedCart = [...cart];//copy cart
 
       updatedCart[itemExists].quantity += 1;//position of item in cart increase quantity
@@ -71,6 +80,16 @@ function App() {
     setCart(updatedCart);
   }
 
+
+  function clearCart() {
+    setCart([]);
+  }
+
+
+  function saveLocalStorage() {
+    
+  }
+
   return (
     <>
 
@@ -79,6 +98,7 @@ function App() {
         removeFromCart={removeFromCart}
         increaseQuantity={increaseQuantity}
         decreaseQuantity={decreaseQuantity}
+        clearCart={clearCart}
       />
 
       <main className="container-xl mt-5">

@@ -16,7 +16,9 @@ function App() {
         <h2 className="text-center">Nuestra Colección</h2>
 
         <div className="row mt-5">
-          <Product />
+          {data.map((product) => (
+            <Product key={product.id} product={product} />
+          ))}
         </div>
       </main>
 
